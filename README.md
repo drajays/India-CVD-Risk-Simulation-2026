@@ -1,27 +1,46 @@
-# India-CVD Risk Simulation & Triage Score
+India-CVD Risk Simulation & Triage Score
+This repository contains the full computational framework for the manuscript: "Treatment Decision Discordance Across Eight ASCVD Risk Calculators in 100,000 Synthetic Indian Patients: An Archetype-Based Treatment-Consequence Analysis for Statin and Cardiometabolic Drug Selection".
 
-This repository contains the full computational framework and synthetic dataset for the manuscript: **"Treatment Decision Discordance Across Eight ASCVD Risk Calculators in 100,000 Synthetic Indian Patients: An Archetype-Based Treatment-Consequence Analysis for Statin and Cardiometabolic Drug Selection"**.
+📊 Zenodo Data Repository (Download Data Here)
+Due to GitHub file size limits, the large 100,000-patient synthetic datasets are hosted permanently on Zenodo. You must download the data file from Zenodo to run the analysis scripts.
 
-## 📂 Repository Contents
+DOI Link: https://doi.org/10.5281/zenodo.18927644
 
-### Datasets (Locked & Final)
-* **`FINAL_MANUSCRIPT_DATA.csv`**: The locked 100,000-patient synthetic dataset containing all baseline parameters, 8 continuous risk scores, and 7 binary treatment classifications. Anchored to ICMR-INDIAB-17 metrics.
-* **`SCORE2_Diabetes_Batch_Upload_v3.csv`**: The formatted input file used for the ESC SCORE2-Diabetes web calculator.
-* **`score2_diabetes_results.csv`**: Raw output from the ESC SCORE2-Diabetes web calculator (41,633 patients, 0 errors).
+FINAL_MANUSCRIPT_DATA.csv.zip: The locked 100,000-patient synthetic dataset containing all baseline parameters, 8 continuous risk scores, and 7 binary treatment classifications. Anchored to ICMR-INDIAB-17 metrics.
 
-### Core Analysis Code & Tools
-* **`ascvd_simulation.py`**: Executable Python script for the consolidated analytical pipeline.
-* **`ascvd_simulation.ipynb`**: Interactive Jupyter/Colab Notebook containing the complete analysis pipeline, Triage Score derivation, and figure generation.
-* **`India_CVD_Simulation_Phase1.py`**: Phase 1 analysis pipeline (patient generation + 7 continuous calculator implementations).
-* **`India_CVD_Simulation_Phase2.py`**: Phase 2 analysis pipeline (SCORE2-DM merge, treatment mapping, discordance calculation, and Triage Score derivation).
-* **`India_CVD_Triage_Score_Calculator.html`**: Standalone interactive web calculator for the derived Triage Score (HTML/CSS/JavaScript, zero dependencies).
-* **`requirements.txt`**: Python environment dependencies.
+indian_ascvd_100k_v3_base.csv: The base synthetic patient cohort generated prior to the SCORE2-Diabetes web calculator merge.
 
-## 🚀 How to Reproduce
+📂 GitHub Repository Contents
+Core Analysis Code & Scripts
+ascvd_simulation.py: The complete Python analysis pipeline (patient generation, calculator implementations, and Triage Score derivation).
 
-1. **Clone this repository** to your local machine.
-2. **Install dependencies:** `pip install -r requirements.txt`.
-3. **Execute:** Run the consolidated analysis (`python ascvd_simulation.py`), or execute the staged pipeline (`Phase1` then `Phase2`) to replicate the exact ESC SCORE2-Diabetes batch workflow.
+generate_main_manuscript_tables.py: Script to computationally reproduce the main manuscript statistics, tables, and figure data.
 
-## 📜 License
+generate_supplementary_1.py: Script to computationally reproduce Supplementary Tables ST1–ST8 and S3 sensitivity analyses.
+
+generate_supplementary_2.py: Script to computationally reproduce the Triage Score validation metrics and S5 budget impact extrapolations.
+
+Clinical Implementation Tools
+India_CVD_Triage_Score_Calculator.html: Standalone interactive web calculator for the derived Triage Score (HTML/CSS/JavaScript, zero dependencies).
+
+Intermediate ESC SCORE2 Data
+SCORE2_Diabetes_Batch_Upload_v3.csv: The formatted input file used for the ESC SCORE2-Diabetes web calculator.
+
+score2_diabetes_results.csv: Raw output from the ESC SCORE2-Diabetes web calculator (41,633 diabetic patients, 0 errors).
+
+Environment
+requirements.txt: Python environment dependencies (e.g., pandas, numpy, scikit-learn, rpy2).
+
+🚀 How to Reproduce the Study
+Clone this repository to your local machine.
+
+Install dependencies: Run pip install -r requirements.txt.
+
+Download the Data: Download FINAL_MANUSCRIPT_DATA.csv.zip from the Zenodo link above and place it in the root directory of this cloned repository.
+
+Execute the reproduction scripts: * Run python generate_main_manuscript_tables.py to recreate the core findings.
+
+Run python generate_supplementary_1.py and python generate_supplementary_2.py to recreate the supplementary reports.
+
+📜 License
 This project is licensed under the MIT License - see the LICENSE file for details.
