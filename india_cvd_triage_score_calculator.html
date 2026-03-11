@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India-CVD Triage Score Calculator</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background-color: #f4f7f6; color: #333; padding: 20px; }
+        .container { max-width: 500px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h2 { color: #2c3e50; text-align: center; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .form-group { margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; padding: 10px; background: #fdfdfd; border: 1px solid #eee; border-radius: 5px; }
+        label { font-weight: 500; cursor: pointer; flex-grow: 1; }
+        input[type="checkbox"] { transform: scale(1.5); margin-left: 15px; cursor: pointer; }
+        .sub-text { display: block; font-size: 0.85em; color: #7f8c8d; font-weight: normal; }
+        .result-box { margin-top: 25px; padding: 20px; text-align: center; border-radius: 8px; background: #ecf0f1; transition: all 0.3s ease; }
+        .score-display { font-size: 2.5em; font-weight: bold; color: #2c3e50; margin-bottom: 5px; }
+        .risk-category { font-size: 1.2em; font-weight: bold; }
+        .action-text { margin-top: 10px; font-size: 0.9em; }
+        .risk-low { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .risk-mod { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .risk-high { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .risk-very-high { background-color: #c82333; color: #fff; border: 1px solid #bd2130; }
+        .footer { margin-top: 20px; font-size: 0.8em; text-align: center; color: #95a5a6; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>India-CVD Triage Score</h2>
+    <div class="form-group"><label for="dm">Diabetes Mellitus <span class="sub-text">(+6 points)</span></label><input type="checkbox" id="dm" onchange="calculateScore()"></div>
+    <div class="form-group"><label for="smoking">Current Smoking <span class="sub-text">(+6 points)</span></label><input type="checkbox" id="smoking" onchange="calculateScore()"></div>
+    <div class="form-group"><label for="age">Age &ge; 50 years <span class="sub-text">(+4 points)</span></label><input type="checkbox" id="age" onchange="calculateScore()"></div>
+    <div class="form-group"><label for="sbp">Systolic BP &ge; 140 mm Hg <span class="sub-text">(+2 points)</span></label><input type="checkbox" id="sbp" onchange="calculateScore()"></div>
+    <div class="form-group"><label for="tg">Triglycerides &ge; 150 mg/dL <span class="sub-text">(+2 points)</span></label><input type="checkbox" id="tg" onchange="calculateScore()"></div>
+    <div class="form-group"><label for="hdl">Low HDL-C <span class="sub-text">&lt;40 mg/dL Male, &lt;45 mg/dL Female (+2 points)</span></label><input type="checkbox" id="hdl" onchange="calculateScore()"></div>
+    <div id="resultBox" class="result-box">
+        <div class="score-display">0 Points</div>
+        <div class="risk-category">Low Risk</div>
+        <div class="action-text">Standard primary prevention.</div>
+    </div>
+    <div class="footer">Pragmatic bedside implementation aid. Derived from synthetic data against LAI 2023 parameters.</div>
+</div>
+<script>
+    function calculateScore() {
+        let score = 0;
+        if(document.getElementById('dm').checked) score += 6;
+        if(document.getElementById('smoking').checked) score += 6;
+        if(document.getElementById('age').checked) score += 4;
+        if(document.getElementById('sbp').checked) score += 2;
+        if(document.getElementById('tg').checked) score += 2;
+        if(document.getElementById('hdl').checked) score += 2;
+
+        const resultBox = document.getElementById('resultBox');
+        const scoreDisplay = resultBox.querySelector('.score-display');
+        const riskCategory = resultBox.querySelector('.risk-category');
+        const actionText = resultBox.querySelector('.action-text');
+
+        scoreDisplay.innerText = score + " Points";
+        resultBox.classList.remove('risk-low', 'risk-mod', 'risk-high', 'risk-very-high');
+
+        if (score >= 14) {
+            resultBox.classList.add('risk-very-high');
+            riskCategory.innerText = "Very High Risk";
+            actionText.innerText = "Unequivocal indication for intensive pharmacotherapy.";
+        }
+        else if (score >= 10) {
+            resultBox.classList.add('risk-high');
+            riskCategory.innerText = "High Risk";
+            actionText.innerText = "Pharmacotherapy indicated.";
+        }
+        else if (score >= 6) {
+            resultBox.classList.add('risk-mod');
+            riskCategory.innerText = "Moderate Risk";
+            actionText.innerText = "Consider therapy based on patient context.";
+        }
+        else {
+            resultBox.classList.add('risk-low');
+            riskCategory.innerText = "Low Risk";
+            actionText.innerText = "Standard primary prevention / lifestyle modification.";
+        }
+    }
+    calculateScore();
+</script>
+</body>
+</html>
